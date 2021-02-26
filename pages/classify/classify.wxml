@@ -2,9 +2,9 @@
 
 <view class="container">
   <view class="theme-header">
-    <image src="{{themeInfo.head_img.url}}" mode="aspectFill"></image>
+    <image src="{{classifyInfo.head_img.url}}" mode="aspectFill"></image>
   </view>
   <view class="theme-main">
-    <template is="products" data="{{productsArr:themeInfo.products}}"></template>
+    <template is="products" data="{{productsArr:classifyInfo.products}}"></template>
   </view>
 </view>

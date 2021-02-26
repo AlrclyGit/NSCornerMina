@@ -1,5 +1,5 @@
-import { Theme } from 'theme-model.js';
-var theme = new Theme();
+import { Classify } from 'classify-model.js';
+var classify = new Classify();
 
 Page({
 
@@ -33,9 +33,9 @@ Page({
    * 
    */
   _lodatData: function () {
-    theme.getProductsData(this.data.id, (data) => {
+    classify.getProductsData(this.data.id, (data) => {
       this.setData({
-        themeInfo: data
+        classifyInfo: data
       });
     });
   },
@@ -47,7 +47,7 @@ Page({
    * 
    */
   onProductsItemTap:function(event){
-    var id = theme.getDataSet(event,'id');
+    var id = classify.getDataSet(event,'id');
     wx.navigateTo({
       url: '../product/product?id=' + id,
     })

@@ -1,6 +1,6 @@
 import { Base } from '../../utils/base.js';
 
-class Theme extends Base {
+class Classify extends Base {
 
   /**
    *  构造函数
@@ -24,5 +24,5 @@ class Theme extends Base {
 
 }
 
-export { Theme }
+export { Classify }
 
