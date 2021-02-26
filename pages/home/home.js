@@ -8,7 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    bannerArr:{}, // Banner数据
+    themeArr:{}, // 指定分类数据
+    productsArr:{}, // 最新商品数据
   },
 
   /**

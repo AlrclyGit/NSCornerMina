@@ -11,7 +11,7 @@ class Cart extends Base {
   }
 
   /**
-   * 
+   * 添加商品和数量到
    */
   add(item, counts) {
     var cartData = this.getCartDataFromLocal();

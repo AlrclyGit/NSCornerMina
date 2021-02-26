@@ -10,7 +10,7 @@ class Category extends Base {
   }
 
   /**
-   * 
+   * 获取所有分类信息
    */
   getCategoryType(callback) {
     var params = {
@@ -23,7 +23,7 @@ class Category extends Base {
   }
 
   /**
-   * 
+   * 获取分类商品信息
    */
   getProductsByCategory(id,callback) {
     var params = {
