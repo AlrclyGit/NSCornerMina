@@ -3,7 +3,7 @@ import { Base } from '../../utils/base.js';
 class Cart extends Base {
 
   /**
-   * 
+   * 初始化
    */
   constructor() {
     super();
@@ -11,16 +11,16 @@ class Cart extends Base {
   }
 
   /**
-   * 添加商品和数量到
+   * 添加商品和数量到缓存
    */
   add(item, counts) {
-    var cartData = this.getCartDataFromLocal();
-    var isHasInfo = this._isHasThatOne(item.id, cartData);
-    if (isHasInfo.index == -1) {
+    var cartData = this.getCartDataFromLocal();// 从缓存中读取购物车数据
+    var isHasInfo = this._isHasThatOne(item.id, cartData); // 断某个商品是否已经被添加到购物车中，并且返回这个商品的数据及所在数组中的序号
+    if (isHasInfo.index == -1) {// 不存在侧添加
       item.counts = counts;
       item.selectStatus = true;
       cartData.push(item);
-    } else {
+    } else { // 已经存在数量+1
       cartData[isHasInfo.index].counts += counts;
     }
     wx.setStorageSync(this._storageKeyName, cartData);
@@ -90,29 +90,34 @@ class Cart extends Base {
   }
 
   /**
-   * 
+   * 改变商品数量
    */
   _changeCounts(id, counts) {
-    var cartData = this.getCartDataFromLocal();
-    var hasInfo = this._isHasThatOne(id, cartData);
-    if (hasInfo.index != -1) {
-      if (hasInfo.data.counts >= 1) {
-        cartData[hasInfo.index].counts += counts;
+    var cartData = this.getCartDataFromLocal(); // 从缓存中读取购物车数据
+    var hasInfo = this._isHasThatOne(id, cartData); // 判断某个商品是否已经被添加到购物车中，并且返回这个商品的数据及所在数组中的序号
+    if (hasInfo.index != -1) { // 商品存在
+      if (hasInfo.data.counts >= 1) { // 商品数量大于0
+        cartData[hasInfo.index].counts += counts; // 修改购物车某商品数量
       }
     }
-    wx.setStorageSync(this._storageKeyName, cartData);
+    wx.setStorageSync(this._storageKeyName, cartData); // 将修改数据写入缓存
   }
 
+  /*
+   * 商品数量+1
+   */
   addCounts(id) {
     this._changeCounts(id, 1);
   }
-
+  /*
+   * 商品数量-1
+   */
   cutCounts(id) {
     this._changeCounts(id, -1);
   }
 
   /**
-   * 
+   * 删除缓存中的商品
    */
   delete(ids) {
     if (!(ids instanceof Array)) {
@@ -126,13 +131,6 @@ class Cart extends Base {
       }
     });
     wx.setStorageSync(this._storageKeyName, cartData);
-  }
-
-  /**
-   * 
-   */
-  execSetStorageSync(data) {
-    wx.setStorageSync(this._storageKeyName, data);
   }
 
 

@@ -105,52 +105,45 @@ Page({
   },
 
   /**
-   * 
+   * 加减商品数量
    */
   changeCounts: function (event) {
-    //
-    var id = cart.getDataSet(event, 'id');
-    var type = cart.getDataSet(event, 'type');
-    var index = this._getProductIndexByID(id);
+    // 获取
+    var id = cart.getDataSet(event, 'id'); // 获取商品ID
+    var type = cart.getDataSet(event, 'type'); // 获取运算类型
+    var index = this._getProductIndexByID(id); // 获取商品在购物车列表的索引
     var counts = 1;
-    //
+    // 更新缓存
     if (type == 'add') {
-      cart.addCounts(id);
+      cart.addCounts(id); // 缓存中对应商品+1
     } else {
       counts = -1;
-      cart.cutCounts(id);
+      cart.cutCounts(id); // 缓存中对应商品-1
     }
-    //
+    // 修改页面的购物车某商品数量
     this.data.cartData[index].counts += counts;
-    this._resetCartData();
+    // 刷新购物车页面
+    this._resetCartData(); 
   },
 
   /**
-   * 
+   * 删除商品
    */
   delete: function (event) {
-    var id = cart.getDataSet(event, 'id');
-    var index = this._getProductIndexByID(id);
-    this.data.cartData.splice(index, 1);
-    this._resetCartData();
-    cart.delete(id);
+    var id = cart.getDataSet(event, 'id'); // 获取商品ID
+    var index = this._getProductIndexByID(id);// 获取商品在购物车列表的索引
+    this.data.cartData.splice(index, 1);// 删除页面上的商品
+    this._resetCartData();// 刷新购物车页面
+    cart.delete(id);// 删除缓存中对应的商品
   },
 
   /**
-   * 
+   * 跳转到订单页面，并标示来源为cart
    */
   submitOrder: function (event) {
     wx.navigateTo({
       url: '../order/order?account=' + this.data.account + '&from=cart',
     });
-  },
-
-
-  /**
-   * 
-   */
-  onHide: function () {
-    cart.execSetStorageSync(this.data.cartData);
   },
 
 })
