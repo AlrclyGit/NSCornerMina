@@ -1,4 +1,4 @@
-<wxs src="/utils/filter.wxs" module="filter" />
+<wxs src="../tpls/filter.wxs" module="filter" />
 
 <!--订单详情-->
 <view class="container order-container">

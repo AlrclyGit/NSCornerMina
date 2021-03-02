@@ -1,4 +1,4 @@
-<wxs src="/utils/filter.wxs" module="filter" />
+<wxs src="../filter.wxs" module="filter" />
 
 <template name="products">
     <view class="products-box">
