@@ -38,18 +38,13 @@ class Address extends Base {
   }
 
   /**
-   * 
+   * 拼接地址转换
    */
   setAddressInfo(res) {
-    // 
-    var province = res.provinceName; //省
-    var city = res.cityName; //市
-    var country = res.countyName; //区
-    var detail = res.detailInfo; //详细
     // 拼接地址
-    var totalDetail = city + country + detail;
-    if (!this.isCenterCity(province)) { //是否为直辖市
-      totalDetail = province + totalDetail;
+    var totalDetail = res.cityName + res.countyName + res.detailInfo;
+    if (!this.isCenterCity(res.provinceName)) { //是否为直辖市
+      totalDetail = res.provinceName + totalDetail;
     }
     // 返回
     return totalDetail;
