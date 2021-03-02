@@ -65,7 +65,7 @@ Page({
     var id = homeM.getDataSet(event, 'id');
     var name = homeM.getDataSet(event, 'name');
     wx.navigateTo({
-      url: '../classify/classify?id=' + id + '&name=' + name,
+      url: '../dissertation/dissertation?id=' + id + '&name=' + name,
     })
   },
 

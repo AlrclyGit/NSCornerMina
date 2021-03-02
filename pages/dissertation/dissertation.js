@@ -1,5 +1,5 @@
-import { Classify } from 'classify-model.js';
-var classify = new Classify();
+import { Dissertation } from 'dissertation-model.js';
+var dissertation = new Dissertation();
 
 Page({
 
@@ -9,7 +9,7 @@ Page({
   data: {
     id: null, // 分类ID
     name: '', // 分类名称
-    classifyInfo: {} // 分类商品目录
+    dissertation: {} // 分类商品目录
   },
 
   /**
@@ -38,9 +38,9 @@ Page({
    */
   _lodatData: function () {
     // 获取主题下的商品列表
-    classify.getProductsData(this.data.id, (data) => {
+    dissertation.getProductsData(this.data.id, (data) => {
       this.setData({
-        classifyInfo: data
+        dissertation: data
       });
     });
   },
@@ -50,7 +50,7 @@ Page({
    */
   onProductsItemTap: function (event) {
     // 获取当前商品ID
-    var id = classify.getDataSet(event, 'id');
+    var id = dissertation.getDataSet(event, 'id');
     // 跳转到商品详情页
     wx.navigateTo({
       url: '../product/product?id=' + id,

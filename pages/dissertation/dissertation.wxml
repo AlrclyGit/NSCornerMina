@@ -1,0 +1,10 @@
+<import src="../tpls/products/products-tpl.wxml"/>
+
+<view class="container">
+  <view class="dissertation-header">
+    <image src="{{dissertation.head_img.url}}" mode="aspectFill"></image>
+  </view>
+  <view class="dissertation-main">
+    <template is="products" data="{{productsArr:dissertation.products}}"></template>
+  </view>
+</view>

@@ -2,19 +2,19 @@
 @import "../tpls/products/products-tpl.wxss";
 
 
-.theme-header {
+.dissertation-header {
   height: 400rpx;
   margin-bottom:30rpx;
   position: relative;
 }
-.theme-header image{
+.dissertation-header image{
   width: 100%;
   height: 100%;
 }
-.theme-header .word view{
+.dissertation-header .word view{
   font-size: 28rpx;
 }
-.theme-header .word view:first-child{
+.dissertation-header .word view:first-child{
   font-size: 40rpx;
   margin-bottom: 20rpx;
 }
