@@ -79,6 +79,17 @@ class Base {
     return event.currentTarget.dataset[key];
   }
 
+  /**
+   * 弹窗警告
+   */
+  showTips(title, content) {
+    wx.showModal({
+      title: title,
+      content: content,
+      showCancel: false,
+    })
+  }
+
 }
 
 export { Base };

@@ -23,13 +23,13 @@ Page({
         // 订单数组
         orderArr: [],
         // 时候加载完所有数据
-        isLoadedAll: false, 
+        isLoadedAll: false,
         // 第一加载标记
         newView: true
     },
 
     /**
-     * 
+     * 生命周期函数--监听页面加载
      */
     onLoad: function () {
         this._loadData(); //从服务器获取用户头像
@@ -38,11 +38,11 @@ Page({
 
 
     /**
-     * 
+     * 生命周期函数--监听页面显示
      */
     onShow: function () {
         var neweOrderFlag = order.hasNewOrder(); // 是否有新订单
-        var newView = this.data.newView; // 第一次加载页面
+        var newView = this.data.newView; // 是否第一次加载页面
         if (neweOrderFlag || newView) {
             this.refresh(); // 加载订单数据
             this.data.newView = false; // 第一次加载页面False
@@ -50,7 +50,7 @@ Page({
     },
 
     /**
-     * 上拉触底加载
+     * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
         if (!this.data.isLoadedAll) {
@@ -141,7 +141,7 @@ Page({
     },
 
     /**
-     * 有新订单时调用
+     * 第一次加载订单数据
      */
     refresh: function () {
         var that = this;
@@ -173,14 +173,8 @@ Page({
         });
     },
 
-
-
-
-
-
-
     /**
-     * 
+     * 跳转到订单详情页
      */
     showOrderDetailInfo: function (event) {
         var id = order.getDataSet(event, 'id');
@@ -189,12 +183,8 @@ Page({
         });
     },
 
-
-
-
-
     /**
-     * 
+     * 付款按钮点击事件的处理函数
      */
     rePay: function (event) {
         var id = order.getDataSet(event, 'id');
@@ -203,45 +193,28 @@ Page({
     },
 
     /**
-     * 
+     * 调用付款接口 （后端更新后修改）
      */
     _execPay: function (id, index) {
         var that = this;
+        // 拉起微信支付
         order.execPay(id, (statusCode) => {
-            if (statusCode > 0) {
-                var flag = statusCode == 2;
-                if (flag) {
-                    that.data.orderArr[index].status = 2;
-                    that.detData({
-                        orderArr: that.data.orderArr
-                    });
-                }
-                wx.navigateTo({
-                    url: '../pay-result/pay-result?id=' + id + '&flag' + flag + '&from=my'
+            if (statusCode == 0) {
+                // 成功
+                that.data.orderArr[index].status = 2;
+                that.detData({
+                    orderArr: that.data.orderArr
                 });
+            } else if (statusCode == 1) {
+                // 弹窗提示失败
+                my.showTips('支付失败', '网络不佳');
             } else {
-                that.showTips('支付失败', '库存不足');
+                // 落地页提示失败
+                wx.navigateTo({
+                    url: '../pay-result/pay-result?id=' + id + '&flag=' + false + '&from=my'
+                });
             }
         });
-    },
-
-    /**
-     * 弹窗警告
-     */
-    showTips: function (title, content, flag) {
-        wx.showModal({
-            title: title,
-            content: content,
-            showCancel: false,
-            success: function () {
-                if (flag) {
-                    wx.switchTab({
-                        url: '/pages/my/my'
-                    });
-                }
-            }
-        })
-    },
-
+    }
 
 })

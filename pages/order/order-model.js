@@ -34,7 +34,7 @@ class Order extends Base {
   }
 
   /**
-   * 拉起微信支付
+   * 拉起微信支付（后端更新后修改）
    */
   execPay(orderNumber, callback) {
     var allParams = {
@@ -42,10 +42,10 @@ class Order extends Base {
       type: 'post',
       data: { id: orderNumber },
       sCallback: function (res) {
-        callback && callback(1); // 支付失败或者取消
-        var data = res.data
-        var timeStamp = data.timeStamp;
-        if (timeStamp) {
+        // 接口异常
+        if (res.hasOwnProperty(data) && res.data.timeStamp) {
+          // 接口正常
+          var data = res.data
           wx.requestPayment({
             timeStamp: timeStamp.toString(),
             nonceStr: data.nonceStr,
@@ -53,19 +53,21 @@ class Order extends Base {
             signType: data.signType,
             paySign: data.paySign,
             success: function () {
-              callback && callback(2); //支付成功
+              callback && callback(0); // 发起支付，并支付成功
             },
             fail: function () {
-              callback && callback(1); // 支付失败或者取消
+              callback && callback(1); // 发起支付，但失败或者取消
             }
           });
         } else {
-          callback && callback(0); // 异常导致的订单无法支付
+          callback && callback(2); // 异常导致的订单无法支付
         }
       }
     }
     this.request(allParams);
   }
+
+
 
   /**
    * 本地缓存
@@ -114,7 +116,7 @@ class Order extends Base {
   /**
    * 是否有新订单
    */
-  hasNewOrder(){
+  hasNewOrder() {
     var flag = wx.getStorageSync(this._storageKeyName);
     return flag == true;
   }

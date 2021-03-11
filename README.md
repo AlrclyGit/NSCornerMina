@@ -8,7 +8,7 @@
 | pages/category | 分类       | ✔  |
 | pages/dissertation | 专题 | ✔  |
 | pages/home | 首页         | ✔  |
-| pages/my | 我的           | ✘ |
+| pages/my | 我的           | ✔ |
 | pages/order | 订单页         | ✘ |
 | pages/pay-result | 支付详情 |  ✔   |
 | pages/Product | 商品详情     | ✔  |
